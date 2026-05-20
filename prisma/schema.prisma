@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole @default(CUSTOMER)
+  avatar   String?
+
+  schedule String[] @default([])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tickets         Ticket[] @relation("CustomerTickets")
+  assignedTickets Ticket[] @relation("TechnicianTickets")
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  TECHNICIAN
+  CUSTOMER
+}
+
+model Service {
+  id       String  @id @default(uuid())
+  name     String
+  price    Decimal @db.Decimal(10, 2)
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tickets TicketService[]
+
+  @@map("services")
+}
+
+model Ticket {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  status      TicketStatus @default(OPEN)
+
+  customerId String
+  customer   User   @relation("CustomerTickets", fields: [customerId], references: [id], onDelete: Cascade)
+
+  technicianId String?
+  technician   User?   @relation("TechnicianTickets", fields: [technicianId], references: [id])
+
+  services TicketService[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tickets")
+}
+
+model TicketService {
+  id        String @id @default(uuid())
+  ticketId  String
+  serviceId String
+
+  ticket  Ticket  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@map("ticket_services")
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}

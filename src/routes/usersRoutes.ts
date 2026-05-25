@@ -38,7 +38,7 @@ usersRoutes.delete("/:id", ensureAuthenticated, usersController.delete);
 usersRoutes.patch(
   "/avatar",
   ensureAuthenticated,
-  upload.single("avatar"),
+
   avatarUserController.update,
 );
 

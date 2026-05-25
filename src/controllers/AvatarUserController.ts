@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { prisma } from "@/database/prisma";
 import { AppError } from "@/utils/AppError";
-// import { DiskStorage } from "@/providers/DiskStorage";
 
 class AvatarUserController {
   async update(request: Request, response: Response) {
     const user_id = request.user?.id;
     const { avatar } = request.body;
-    // const diskStorage = new DiskStorage();
 
     const user = await prisma.user.findUnique({ where: { id: user_id } });
     if (avatar === undefined) {
@@ -20,8 +18,6 @@ class AvatarUserController {
         401,
       );
     }
-
-    // const filename = await diskStorage.saveFile(avatar!);
 
     await prisma.user.update({
       where: { id: user_id },

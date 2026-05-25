@@ -3,12 +3,6 @@ import path from "node:path";
 import crypto from "node:crypto";
 import fs from "fs";
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// const TMP_FOLDER = path.resolve(__dirname, "..", "..", "temp");
-// const UPLOADS_FOLDER = path.resolve(TMP_FOLDER, "uploads");
-
 const TMP_FOLDER = path.resolve(import.meta.dirname, "..", "..", "temp");
 const UPLOADS_FOLDER = path.resolve(TMP_FOLDER, "uploads");
 

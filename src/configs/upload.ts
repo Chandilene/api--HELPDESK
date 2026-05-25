@@ -2,7 +2,6 @@ import multer from "multer";
 import path from "node:path";
 import crypto from "node:crypto";
 import fs from "fs";
-// import { fileURLToPath } from "url";
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);

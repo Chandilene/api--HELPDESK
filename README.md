@@ -74,7 +74,7 @@ src/
 
 
 ```Bash
-git clone [https://github.com/seu-usuario/HelpDesk-API.git](https://github.com/seu-usuario/HelpDesk-API.git)
+git clone [https://github.com/seu-usuario/api--HELPDESK.git](https://github.com/seu-usuario/api--HELPDESK.git)
 cd HelpDesk-API
 ```
 
